@@ -1,0 +1,30 @@
+#include "mlu.h"
+
+#define __BANG_ARCH__ 200
+#include "__clang_bang_math.h"
+#include "__clang_bang_intrinsics.h"
+
+typedef half value_type; 
+
+#define maxNramMem 262144
+#define maxNramSize(type) maxNramMem / sizeof(type)
+#define maxLen 8192
+#define baseLen (sizeof(double) / sizeof(value_type) * 16)
+#define formatLen(sz) ((sz) / baseLen + ((sz) % baseLen? 1: 0)) * baseLen
+
+
+__mlu_entry__ void lu_kernel_2(value_type*A, int n, int i) {
+    int j = taskIdX + i + 1;
+    if (j >= n) return;
+
+    __nram__ value_type Ajx[maxLen], Aix[maxLen];
+    __nram__ value_type Aji[baseLen];
+
+    __nramset_half(Aji, baseLen, A[j * n + i]);
+
+    __memcpy(Ajx, A + j * n + i + 1, (n - i - 1) * sizeof(value_type), GDRAM2NRAM);
+    __memcpy(Aix, A + i * n + i + 1, (n - i - 1) * sizeof(value_type), GDRAM2NRAM);
+    __bang_cycle_mul(Aix, Aix, Aji, formatLen(n - i - 1), baseLen);
+    __bang_sub(Ajx, Ajx, Aix, formatLen(n - i - 1));
+    __memcpy(A + j * n + i + 1, Ajx, (n - i - 1) * sizeof(value_type), NRAM2GDRAM);
+}

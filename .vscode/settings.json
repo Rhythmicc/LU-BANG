@@ -1,0 +1,15 @@
+{
+    "files.associations": {
+        "*.cu": "cpp",
+        "*.mlu": "c",
+        "cu2bang_util.h": "c",
+        "__clang_bang_intrinsics.h": "c",
+        "cnplugin.h": "c",
+        "__clang_bang_math.h": "c",
+        "mlu.h": "c",
+        "math.h": "c",
+        "sockstring.h": "c",
+        "sockclient.h": "c",
+        "common.h": "c"
+    }
+}

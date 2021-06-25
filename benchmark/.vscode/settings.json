@@ -1,0 +1,12 @@
+{
+    "python.linting.enabled": true,
+    "python.analysis.extraPaths": [
+        "/usr/local/python3/lib/python3.9/site-packages/",
+        "/usr/local/python3/lib/python3.9/"
+    ],
+    "files.associations": {
+        "*.cu": "cpp",
+        "sockclient.h": "c",
+        "sockstring.h": "c"
+    }
+}

@@ -1,0 +1,6 @@
+compile_tool,make
+compile_filename,main.c
+executable_filename,dist/NRAM-HALF
+input_file,dist/input.txt
+template_root,template/
+server_target,,

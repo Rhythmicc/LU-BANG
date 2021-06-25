@@ -1,0 +1,18 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "/opt/AICSE-demo-student/env/neuware/lib/clang/5.0.1/include",
+                "/opt/AICSE-demo-student/env/neuware/include",
+                "/usr/local/include",
+                "${workspaceFolder}/include"
+            ],
+            "intelliSenseMode": "linux-gcc-x64",
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "gnu11",
+            "cppStandard": "gnu++98"
+        }
+    ],
+    "version": 4
+}

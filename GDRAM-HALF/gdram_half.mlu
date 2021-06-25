@@ -1,0 +1,18 @@
+#include "mlu.h"
+
+#define __BANG_ARCH__ 200
+#include "__clang_bang_math.h"
+#include "__clang_bang_intrinsics.h"
+
+#define maxNramMem 262144
+#define maxNramSize(type) maxNramMem / sizeof(type)
+#define baseLen(type) sizeof(double) / sizeof(type) * 16
+
+
+__mlu_entry__ void lu_kernel(half*A, int n) {
+    for (int i = 0; i < n - 1; ++i)
+        for (int j = i + 1; j < n; ++j) {
+            A[j * n + i] /= A[i * n + i];
+            for (int x = i + 1; x < n; ++x) A[j * n + x] -= A[j * n + i] * A[i * n + x];
+        }
+}
